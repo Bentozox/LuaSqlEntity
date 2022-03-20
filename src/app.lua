@@ -1,10 +1,16 @@
 CONFIG = {
-    VERSION = "0.0"
+    VERSION = "0.0",
+    DEFAULT_BUILDER = require("modules/SqlBuilder/services/mysql/MySqlBuilder")
 }
+
+
+
 
 SqlBuilder = require("modules/SqlBuilder/SqlBuilder")
 
-userBuilder = SqlBuilder("users")
+userBuilder = SqlBuilder.newInstanceWithService(
+                    CONFIG.DEFAULT_BUILDER()
+                )
 
 
 local user = {
@@ -12,5 +18,6 @@ local user = {
     money = 2034
 }
 
-userBuilder.insert(user)
+local request = userBuilder.insert("users", user)
+print("Request : ", request)
 

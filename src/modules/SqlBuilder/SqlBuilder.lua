@@ -5,18 +5,37 @@
 ---
 
 -- Object constructor of SqlParser. Use this object to parse SQL request (Object to SQL)
-function SqlBuilder(tableName)
+-- @param tableName {string} Name of database table
+-- @param iBuilderService {IBuilder} Service to use
+-- @see IBuilder
+function newInstanceWithService(iBuilderService)
     local this = {}
 
-    this.insert = function(object)
-        print(tableName .. " insert :")
-        for column, value in pairs(object) do
-            print(column, value)
-        end
+    -- @param tableName {string} Name of database table
+    -- @return string Constructed request
+    this.insert = function(tableName, object)
+        -- TODO : Verify if object is nil or empty
+        return iBuilderService.insert(tableName, object)
+    end
+
+    return this;
+end
+
+-- Object constructor of SqlParser. Use this object to parse SQL request (Object to SQL)
+-- @param tableName {string} Name of database table
+function newInstanceWithService(iBuilderService)
+    local this = {}
+
+    -- @param tableName {string} Name of database table
+    this.insert = function(tableName, object)
+        iBuilderService.insert(tableName, object)
     end
 
     return this;
 end
 
 
-return SqlBuilder
+return {
+    newInstanceWithService = newInstanceWithService,
+    newInstance = newInstance
+}
