@@ -5,7 +5,6 @@
 ---
 
 -- Object constructor of SqlParser. Use this object to parse SQL request (Object to SQL)
--- @param tableName {string} Name of database table
 -- @param iBuilderService {IBuilder} Service to use
 -- @see IBuilder
 function newInstanceWithService(iBuilderService)
@@ -21,17 +20,9 @@ function newInstanceWithService(iBuilderService)
     return this;
 end
 
--- Object constructor of SqlParser. Use this object to parse SQL request (Object to SQL)
--- @param tableName {string} Name of database table
-function newInstanceWithService(iBuilderService)
-    local this = {}
-
-    -- @param tableName {string} Name of database table
-    this.insert = function(tableName, object)
-        iBuilderService.insert(tableName, object)
-    end
-
-    return this;
+-- Object constructor of SqlParser. Use this object to parse SQL request (Object to SQL). Default service is MySql
+function newInstance()
+    return CONFIG.DEFAULT_BUILDER()
 end
 
 

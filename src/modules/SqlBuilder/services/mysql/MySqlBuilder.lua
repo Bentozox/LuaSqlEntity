@@ -20,7 +20,6 @@ local MysqlBuilder = function()
             keyJoiner.append(column)
             valueJoiner.append(value)
         end
-        print("osdf","INSERT INTO " .. tableName .. " " .. keyJoiner.toString() .. " VALUES " .. valueJoiner.toString())
 
         return "INSERT INTO " .. tableName .. " " .. keyJoiner.toString() .. " VALUES " .. valueJoiner.toString()
     end
