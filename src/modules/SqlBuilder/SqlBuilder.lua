@@ -11,10 +11,19 @@ function newInstanceWithService(iBuilderService)
     local this = {}
 
     -- @param tableName {string} Name of database table
+    -- @param tableName {table} Object to insert
     -- @return string Constructed request
     this.insert = function(tableName, object)
         -- TODO : Verify if object is nil or empty
         return iBuilderService.insert(tableName, object)
+    end
+
+    -- @param tableName {string} Name of database table
+    -- @param tableName {table} Object to delete
+    -- @return string Constructed request
+    this.delete = function(tableName, object)
+        -- TODO : Verify if object is nil or empty
+        return iBuilderService.delete(tableName, object)
     end
 
     return this;

@@ -10,21 +10,27 @@ function StringJoiner(prefix, delimiter, suffix)
 
     delimiter = (delimiter or "")
     local str = prefix or ""
-    local hasAppend = false
+    local size = 0
 
     -- Append value to current str
     this.append = function(newStr)
-        if hasAppend then
+        if size > 0 then
             str = str .. (delimiter or "") .. newStr
         else
             str = str .. newStr
-            hasAppend = true
         end
+
+        size = size + 1
     end
 
     -- Return result of joining
     this.toString = function()
         return str .. suffix
+    end
+
+    -- Return joiner size
+    this.getSize = function()
+        return size
     end
 
     return this

@@ -18,6 +18,9 @@ local user = {
     money = 2034
 }
 
-local request = userBuilder.insert("users", user)
-print("Request : ", request)
+local insertRequest = userBuilder.insert("users", user)
+print("Insert Request : ", insertRequest)
 
+
+local deleteRequest = userBuilder.delete("users", user)
+print("Delete Request : ", deleteRequest)

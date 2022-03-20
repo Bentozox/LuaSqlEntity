@@ -7,25 +7,49 @@
 local IBuilder = require("modules/SqlBuilder/IBuilder")
 local StringJoiner = require("modules/SqlBuilder/StringJoiner")
 
+--
+function parseData(data)
+    if type(data) == "string" then
+        return "'" .. data .. "'"
+    elseif type(data) == "number" then
+        return data
+    end
+end
 
 local MysqlBuilder = function()
 
-    -- insert {function(object : table) string}
     -- @param tableName {string} Name of database table
     local function insert(tableName, object)
         local keyJoiner = StringJoiner("(", ", ", ")")
         local valueJoiner = StringJoiner("(", ", ", ")")
 
+        -- TODO : IF string then 'Hello with space', int, ...
         for column, value in pairs(object) do
             keyJoiner.append(column)
-            valueJoiner.append(value)
+            valueJoiner.append(parseData(value))
         end
 
         return "INSERT INTO " .. tableName .. " " .. keyJoiner.toString() .. " VALUES " .. valueJoiner.toString()
     end
 
 
-    return IBuilder.newInstance(insert)
+    -- @param tableName {string} Name of database table
+    local function delete(tableName, object)
+        local joiner = StringJoiner("", ", ", "")
+
+        for column, value in pairs(object) do
+            joiner.append(column .. "=" .. parseData(value))
+        end
+
+        if joiner.getSize() == 0 then
+            return "DELETE FROM " .. tableName
+        end
+
+        return "DELETE FROM " .. tableName .. " WHERE " .. joiner.toString()
+    end
+
+
+    return IBuilder.newInstance(insert, delete)
 end
 
 

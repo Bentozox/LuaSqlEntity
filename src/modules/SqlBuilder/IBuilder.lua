@@ -7,9 +7,10 @@
 
 -- @param insert {function(tableName : string, object : table) string}
 -- @return {table}
-function newInstance(insert)
+function newInstance(insert, delete)
     return {
-        insert = insert
+        insert = insert,
+        delete = delete
     }
 end
 
