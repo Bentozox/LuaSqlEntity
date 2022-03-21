@@ -24,3 +24,7 @@ print("Insert Request : ", insertRequest)
 
 local deleteRequest = userBuilder.delete("users", user)
 print("Delete Request : ", deleteRequest)
+
+
+local selectRequest = userBuilder.select("users", user, {"name"})
+print("Select Request : ", selectRequest)

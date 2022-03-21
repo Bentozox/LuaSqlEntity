@@ -5,10 +5,13 @@
 ---
 
 
+-- @param select {function(tableName : string, object : table, columns : table) string}
 -- @param insert {function(tableName : string, object : table) string}
--- @return {table}
-function newInstance(insert, delete)
+-- @param delete {function(tableName : string, object : table) string}
+-- @return {table} Instance of IBuilder
+function newInstance(select, insert, delete)
     return {
+        select = select,
         insert = insert,
         delete = delete
     }

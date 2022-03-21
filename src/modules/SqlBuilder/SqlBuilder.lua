@@ -10,6 +10,16 @@
 function newInstanceWithService(iBuilderService)
     local this = {}
 
+
+    -- @param tableName {string} Name of database table
+    -- @param object {table} Key & Value put in WHERE clause
+    -- @param columns {array} Columns to select
+    -- @return string Constructed request
+    this.select = function(tableName, object, columns)
+        -- TODO : Verify if object is nil or empty
+        return iBuilderService.select(tableName, object, columns)
+    end
+
     -- @param tableName {string} Name of database table
     -- @param tableName {table} Object to insert
     -- @return string Constructed request
